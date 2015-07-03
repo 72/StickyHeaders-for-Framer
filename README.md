@@ -92,6 +92,7 @@ Make sure to plan ahead what you need to show in your prototype. My workflow is:
 - Install this module.
 - Refer to the design comp to get the values needed to create the stamps: array for `data` (y, labelText, subLabelText) and styles (CSS) for `labelStyle` and `subLabelStyle`.
 
+[Medium - Unlocking ideas with Framer Studio](https://medium.com/@72mena/unlocking-ideas-with-framer-studio-790b5e9c249f) - See this module in action in one of the projects I was working on.
 
 ##Contact
 Twitter: [@72mena](http://twitter.com/72mena)

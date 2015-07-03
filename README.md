@@ -1,8 +1,13 @@
 # StickyStamps-for-Framer
-A Framer module to create scroll components with sticky stamps.
+A module to create scroll components with sticky stamps in Framer.
 
 
-## How to use in Framer Studio
+## Examples
+- [Example 1](http://share.framerjs.com/slqihde6yfog/) - Prototype with `scrollImage`.
+- [Example 2](http://share.framerjs.com/anzg7j0j904z/) - Prototype without `scrollImage`, (focus on sticky stamps).
+- [Example 3](http://share.framerjs.com/d71gzc2202kj/) - Prototype without `scrollImage`, (focus on sticky stamps).
+
+## Installation
 
 1. Create a new Framer project.
 2. Download `StickyStamps.coffee` and put it in the `modules` folder.
@@ -11,10 +16,9 @@ A Framer module to create scroll components with sticky stamps.
 {StickyStamps} = require "StickyStamps"
 ```
 
-## Examples
+## How to use
 
-### Usage
-This is the basic usage to create a new scroll with sticky stamps. Note that these 3 attributes are **required**: data, scrollImage and scrollHeight.
+This is the basic usage to create a new scroll with sticky stamps.
 
 ```coffeescript
 myScroll = new StickyStamps
@@ -23,7 +27,7 @@ myScroll = new StickyStamps
 	scrollHeight:4000
 ```
 
-### About required attributes
+### About basic attributes
 Let's explain what each attribute is for, and what type of data should be passed on.
 
 - **data:** Expects an **array** with the info needed to create the stamps. Each item in the array must be structured like this:
@@ -80,6 +84,14 @@ subLabel =
 - **stampHeight:** Even if you use a `height` value in your `mainLabel` styleset, the **stampHeight** attribute is the one the module uses as a reference to determine the "collision" between two stamps. (Defaults to 100)
 
 
-##Contact
+## Planning your prototype
+Make sure to plan ahead what you need to show in your prototype. My workflow is: 
+- Design a complete scroll with stamps and list items in Sketch or Photoshop.
+- Export the scroll as a .png **without** the stamps (just group the stamps in one layer and turn it off).
+- Put the .png in the `images` folder inside the Framer projet.
+- Install this module.
+- Refer to the design comp to get the values needed to create the stamps: array for `data` (y, labelText, subLabelText) and styles (CSS) for `labelStyle` and `subLabelStyle`.
 
+
+##Contact
 Twitter: [@72mena](http://twitter.com/72mena)

@@ -33,7 +33,7 @@ Let's explain what each attribute is for, and what type of data should be passed
 - **data:** Expects an **array** with the info needed to create the stamps. Each item in the array must be structured like this:
   - y: Stamp's initial Y position. (Get this value from your design comp).
   - labelText: Content for stamp's main label.
-  - subLabelText: Content for stamp's sublabel.
+  - subLabelText: Content for stamp's sublabel. If you don't need a subLabel, add it to the array but leave its value empty.
 ```coffeescript
 dataSet = [
 	{"y":50,  "labelText":"9:30", "subLabelText":"AM"}, 

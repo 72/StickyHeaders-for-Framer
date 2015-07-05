@@ -24,7 +24,7 @@ This is the basic usage to create a new scroll with sticky stamps.
 myScroll = new StickyStamps
 	data: dataSet
 	scrollImage: "images/list-day1.png"
-	scrollHeight:4000
+	scrollHeight: 4000
 ```
 
 ### About basic attributes
@@ -62,23 +62,23 @@ myScroll = new StickyStamps
 - **labelStyle & subLabelStyle:** Use these attributes to set the style of the stamps. Replicate the style from your design with CSS.
 ```coffeescript
 mainLabel =
+	backgroundColor: "transparent"
 	color: "#000"
 	fontFamily: "Avenir"
-	fontWeight: "500"
 	fontSize: "32px"
+	fontWeight: "500"
 	textAlign: "left"
 	marginLeft: "40px"
-	backgroundColor: "transparent"
 	height: "100px"
 	width: "130px"
 subLabel =
+	backgroundColor: "transparent"
 	color: "gray"
 	fontFamily: "Avenir"
-	fontWeight: "500"
 	fontSize: "28px"
+	fontWeight: "500"
 	marginTop: "12px"
 	textAlign: "left"
-	backgroundColor: "transparent"
 ```
 
 - **stampHeight:** Even if you use a `height` value in your `mainLabel` styleset, the **stampHeight** attribute is the one the module uses as a reference to determine the "collision" between two stamps. (Defaults to 100)

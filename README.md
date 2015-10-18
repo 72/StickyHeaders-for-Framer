@@ -86,7 +86,7 @@ subLabel =
 
 ## Planning your prototype
 Make sure to plan ahead what you need to show in your prototype. My workflow is:
-- Design a complete scroll with stamps and list items in Sketch or Photoshop.
+- Design a complete scroll with headers and list items in Sketch or Photoshop.
 - Export the scroll as a .png **without** the headers (just group the headers in one layer and turn it off).
 - Put the .png in the `images` folder inside the Framer projet.
 - Install this module.

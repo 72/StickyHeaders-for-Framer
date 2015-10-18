@@ -13,15 +13,15 @@ class exports.StickyHeaders extends Layer
 		@options.subLabelStyle ?= color: "black", background: null
 
 		super @options
-		# Save 'Data'
+
 		@data = @options.data
-		# Value for stamps to be considered being 'offscreen'
+		# Value for headers to be considered being 'offscreen'
 		@offscreen = -@options.headerHeight
 		# First y value becomes 'fixed' position by default
 		@fixed = @data[0].y
-		# Range in which a new stamp will push the previous one
+		# Range in which a new header will push the previous one
 		@threshold = @fixed + @options.headerHeight
-		# Array to hold headers (called containers)
+		# Array to hold headers/containers
 		@headersContainers = []
 		# Build
 		@setup()
@@ -47,7 +47,7 @@ class exports.StickyHeaders extends Layer
 	createHeaders: () =>
 		# Iterate 'data'
 		for object, i in @data
-			# Create timestamp/sticky container
+			# Create header container
 			@container = new Layer
 				width: @options.headerWidth
 				height: @options.headerHeight
@@ -67,31 +67,30 @@ class exports.StickyHeaders extends Layer
 				style: @options.subLabelStyle
 				clip: false
 				superLayer: @label
-			# Add container to timeStamps array
+			# Add container to headersContainers array
 			@headersContainers.push @container
 
 	bindEvents: () =>
 		# This is the fun part:
-		print 'here'
 		@scroller.on Events.Move, =>
 			# Update yOffset each time the scroll moves
 			@yOffset = @scroller.scrollY
-			# Update each stamp's y position according to yOffset
-			for header, i in @headersContainers
-				header.y = @data[i].y - @yOffset
-			# Iterate stored Y values in 'data' to determine which stamp remains static; also, determine when to transition to the next/previous stamp.
-			for value, i in @data
-				# First stamp should be sticky by default...
+			# Update each header's y position according to yOffset
+			for container, i in @headersContainers
+				container.y = @data[i].y - @yOffset
+			# Iterate stored Y values in 'data' to determine which header remains static; also, determine when to transition to the next/previous header.
+			for object, i in @data
+				# First header should be sticky by default...
 				if i == 0
 					if @headersContainers[0].y <= @fixed
 						@headersContainers[0].y = @fixed
-				# ...until the next stamp tries to come into place.
+				# ...until the next header tries to come into place.
 				if i > 0
-					thisminY = value.y - @threshold
+					thisminY = object.y - @threshold
 					thismaxY = thisminY + @options.headerHeight + @fixed
 					if @headersContainers[i].y < @threshold
-						# Stamp transition!
+						# Headers transition!
 						@headersContainers[i-1].y = Utils.modulate(@yOffset, [thisminY, thismaxY], [@fixed, @offscreen], true)
 					if @headersContainers[i].y <= @fixed
-						# Set it to become a fixed timestamp... for now.
+						# Set the new one to become a fixed header.
 						@headersContainers[i].y = @fixed

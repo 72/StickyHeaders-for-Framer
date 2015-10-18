@@ -1,7 +1,9 @@
-# Import Module
-{StickyStamps} = require "StickyStamps"
+# by: @72mena
 
-#Stamps data
+# Import Module
+{StickyHeaders} = require "StickyHeaders"
+
+#Headers data
 dataSet = [
 	{"y":50,  "labelText":"28", "subLabelText":"June"}, 
 	{"y":320, "labelText":"29", "subLabelText":"June"},
@@ -40,10 +42,10 @@ subLabel =
 	width: "220px"
 
 #Setup
-myScroll = new StickyStamps
+myScroll = new StickyHeaders
 	data: dataSet
 	labelStyle: mainLabel
 	subLabelStyle: subLabel
-	stampHeight: 220
+	headerHeight: 220
 	#scrollImage: "path to image"
 	scrollHeight: 4000

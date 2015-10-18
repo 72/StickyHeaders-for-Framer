@@ -1,7 +1,9 @@
-# Import Module
-{StickyStamps} = require "StickyStamps"
+# by: @72mena
 
-#Stamps data
+# Import Module
+{StickyHeaders} = require "StickyHeaders"
+
+# Headers data
 dataSet = [
 	{"y":50,  "labelText":"28", "subLabelText":"June"}, 
 	{"y":220, "labelText":"29", "subLabelText":"June"},
@@ -13,7 +15,7 @@ dataSet = [
 	{"y":3500, "labelText":"5", "subLabelText":"July"}
 ]
 
-#Style for main Label
+# Style for main Label
 mainLabel =
 	color: "#1D1D26"
 	fontFamily: "Verdana"
@@ -28,7 +30,7 @@ mainLabel =
 	borderBottom: "1px solid #CCC"
 	borderTop: "1px solid #CCC"
 
-#Style for sublabel
+# Style for sublabel
 subLabel =
 	color: "gray"
 	fontFamily: "Verdana"
@@ -40,11 +42,11 @@ subLabel =
 	height: "40px"
 	width: "750px"
 
-#Setup
-myScroll = new StickyStamps
+# Setup
+myScroll = new StickyHeaders
 	data: dataSet
 	labelStyle: mainLabel
 	subLabelStyle: subLabel
-	stampHeight: 80
+	headerHeight: 80
 	#scrollImage: "path to image"
 	scrollHeight: 4000

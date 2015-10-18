@@ -1,10 +1,10 @@
-class exports.StickyStamps extends Layer
+class exports.StickyHeaders extends Layer
 
 	constructor: (@options={}) ->
 		# Set Defaults
 		@options.data ?= null
-		@options.stampHeight ?= 100
-		@options.stampWidth ?= 160
+		@options.headerHeight ?= 100
+		@options.headerWidth ?= 160
 		@options.scrollImage ?= null
 		@options.scrollHeight ?= 100
 		@options.width ?= Screen.width
@@ -16,16 +16,16 @@ class exports.StickyStamps extends Layer
 		# Save 'Data'
 		@data = @options.data
 		# Value for stamps to be considered being 'offscreen'
-		@offscreen = -@options.stampHeight
+		@offscreen = -@options.headerHeight
 		# First y value becomes 'fixed' position by default
 		@fixed = @data[0].y
 		# Range in which a new stamp will push the previous one
-		@threshold = @fixed + @options.stampHeight
-		# Array to hold stamps (called containers)
-		@timeStamps = []
+		@threshold = @fixed + @options.headerHeight
+		# Array to hold headers (called containers)
+		@headersContainers = []
 		# Build
 		@setup()
-		@createStamps()
+		@createHeaders()
 		@bindEvents()
 
 	setup: () =>
@@ -44,13 +44,13 @@ class exports.StickyStamps extends Layer
 			backgroundColor: null
 			superLayer: @scroller.content
 
-	createStamps: () =>
+	createHeaders: () =>
 		# Iterate 'data'
 		for object, i in @data
 			# Create timestamp/sticky container
 			@container = new Layer
-				width: @options.stampWidth
-				height: @options.stampHeight
+				width: @options.headerWidth
+				height: @options.headerHeight
 				y: object.y
 				backgroundColor: null
 				clip: false
@@ -68,29 +68,30 @@ class exports.StickyStamps extends Layer
 				clip: false
 				superLayer: @label
 			# Add container to timeStamps array
-			@timeStamps.push @container
+			@headersContainers.push @container
 
 	bindEvents: () =>
 		# This is the fun part:
+		print 'here'
 		@scroller.on Events.Move, =>
 			# Update yOffset each time the scroll moves
 			@yOffset = @scroller.scrollY
 			# Update each stamp's y position according to yOffset
-			for stamp, i in @timeStamps
-				stamp.y = @data[i].y - @yOffset
+			for header, i in @headersContainers
+				header.y = @data[i].y - @yOffset
 			# Iterate stored Y values in 'data' to determine which stamp remains static; also, determine when to transition to the next/previous stamp.
-			for object, i in @data
+			for value, i in @data
 				# First stamp should be sticky by default...
 				if i == 0
-					if @timeStamps[0].y <= @fixed
-						@timeStamps[0].y = @fixed
+					if @headersContainers[0].y <= @fixed
+						@headersContainers[0].y = @fixed
 				# ...until the next stamp tries to come into place.
 				if i > 0
-					thisminY = object.y - @threshold
-					thismaxY = thisminY + @options.stampHeight + @fixed
-					if @timeStamps[i].y < @threshold
+					thisminY = value.y - @threshold
+					thismaxY = thisminY + @options.headerHeight + @fixed
+					if @headersContainers[i].y < @threshold
 						# Stamp transition!
-						@timeStamps[i-1].y = Utils.modulate(@yOffset, [thisminY, thismaxY], [@fixed, @offscreen], true)
-					if @timeStamps[i].y <= @fixed
+						@headersContainers[i-1].y = Utils.modulate(@yOffset, [thisminY, thismaxY], [@fixed, @offscreen], true)
+					if @headersContainers[i].y <= @fixed
 						# Set it to become a fixed timestamp... for now.
-						@timeStamps[i].y = @fixed
+						@headersContainers[i].y = @fixed

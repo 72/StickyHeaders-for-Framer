@@ -1,7 +1,9 @@
-# Import Module
-{StickyStamps} = require "StickyStamps"
+# by: @72mena
 
-#Stamps data
+# Import Module
+{StickyHeaders} = require "StickyHeaders"
+
+#Headers data
 dataSet = [
 	{"y":43,  "labelText":"9:30", "subLabelText":"AM"}, 
 	{"y":206, "labelText":"12:00", "subLabelText":"PM"},
@@ -21,7 +23,9 @@ mainLabel =
 	fontSize: "32px"
 	textAlign: "left"
 	marginLeft: "40px"
-	backgroundColor: "transparent" #set it to red, see how stamps transition.
+	# Set this value to "red" to notice the transitions.
+	backgroundColor: "transparent"
+	# This value is for styling purposes only. The "height" value that affects the header transition is "headerHeight", commented in 'myScroll'
 	height: "100px" 
 	width: "130px"
 
@@ -36,9 +40,11 @@ subLabel =
 	backgroundColor: "transparent"
 
 #Setup
-myScroll = new StickyStamps
+myScroll = new StickyHeaders
 	data: dataSet
 	labelStyle: mainLabel
 	subLabelStyle: subLabel
+	# This value affects the headers transition. Defaults to 100.
+	# headerHeight: 100
 	scrollImage: "images/list-day1.png"
-	scrollHeight:4000
+	scrollHeight: 4000

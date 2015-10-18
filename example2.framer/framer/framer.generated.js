@@ -274,14 +274,6 @@ Bridge = (function(superClass) {
     return typeof window !== "undefined" && window !== null ? typeof window._bridge === "function" ? window._bridge(command, info) : void 0 : void 0;
   };
 
-  Bridge.prototype.sendError = function(error) {
-    return this.send("runtime.error", {
-      message: error.message,
-      lineNumber: error.lineNumber,
-      errorType: error.constructor.name
-    });
-  };
-
   return Bridge;
 
 })(EventEmitter);
@@ -312,8 +304,14 @@ getLayerProperties = function(layer) {
   properties = {
     id: layer.id,
     name: layer.name || ((ref = layer.__framerInstanceInfo) != null ? ref.name : void 0) || (layer.constructor.name + " " + layer.id),
-    superLayer: null
+    superLayer: null,
+    __framerInstanceInfo: layer.__framerInstanceInfo
   };
+  if (properties.__framerInstanceInfo == null) {
+    properties.__framerInstanceInfo = {
+      hash: "#il|" + layer.__framerImportedFromPath + "|" + properties.name
+    };
+  }
   _.extend(properties, _.pick(layer, ["x", "y", "z", "index", "width", "height", "scale", "opacity", "rotationX", "rotationY", "rotationZ", "blur"]));
   if (properties.visible === false) {
     properties.visibleResult = false;
@@ -642,74 +640,43 @@ Runtime = (function(superClass) {
         });
       });
     }
-    return bridge.send("runtime.init");
-  };
-
-  Runtime.prototype.compile = function(coffeescript) {
-    var result;
-    if (this.coffeescript === coffeescript) {
-      return;
-    }
-    console.log("» Framer build " + (BUILDS++));
-    this._errorHandlerRemove();
-    this.coffeescript = coffeescript;
-    result = this.uncoffee(this.coffeescript);
-    this.sourceMap = result.sourceMap;
-    this.javascript = result.js;
-    this._errorHandlerSetup();
-    return JSON.stringify({
-      js: this.javascript
-    });
+    Framer.Importer.load = function(path) {
+      var importer, layer, layers, name;
+      importer = new Framer.Importer(path);
+      layers = importer.load();
+      for (name in layers) {
+        layer = layers[name];
+        layer.__framerImportedFromPath = path;
+        layer;
+      }
+      return layers;
+    };
+    bridge.send("runtime.init");
+    return this._errorHandlerSetup();
   };
 
   Runtime.prototype.reset = function() {
     return Utils.reset();
   };
 
-  Runtime.prototype.uncoffee = function(code) {
-    var compile, error, options, optionsEx, ref, result;
-    options = {
-      sourceMap: true,
-      filename: "app.coffee"
-    };
-    optionsEx = {
-      returnAST: false,
-      returnScope: false,
-      returnGlobals: false,
-      returnInfo: false,
-      framerInstanceInfo: true
-    };
-    if (Inferencer.cs2js) {
-      compile = Inferencer.cs2js;
-    } else {
-      compile = CoffeeScript.compile;
-    }
-    result = compile(code, options, optionsEx);
-    if (result.error != null) {
-      error = new SyntaxError(result.error.message);
-      error.lineNumber = -1;
-      if (result.error.location != null) {
-        error.lineNumber = ((ref = result.error.location) != null ? ref.first_line : void 0) + 1;
-      }
-      bridge.sendError(error);
-      throw new Error("Framer syntax error line " + error.lineNumber + ": " + e.message);
-    }
-    return result;
-  };
-
   Runtime.prototype._errorHandler = function(runtimeError) {
     var error, errorFromCompiledCoffeeScript, fileName;
     errorFromCompiledCoffeeScript = runtimeError.filename === window.location.href;
+    error = {
+      message: runtimeError.message,
+      lineNumber: runtimeError.lineno,
+      colNumber: runtimeError.colno,
+      fileName: runtimeError.filename
+    };
     if (errorFromCompiledCoffeeScript) {
-      error = new Error(runtimeError.message);
-      error.lineNumber = this._lookupLine(runtimeError.lineno);
+      error.type = "coffeescript";
+      error.clientCodeId = window.__framerClientCodeId;
     } else {
       fileName = _.last(parseUrl(runtimeError.filename).pathname.split("/"));
-      error = new Error("[" + fileName + "] " + runtimeError.message);
-      error.lineNumber = -1;
+      error.type = "javascript";
+      error.message = "[" + fileName + "] " + runtimeError.message;
     }
-    console.log("_errorHandler", runtimeError, error);
-    return bridge.sendError(error);
+    return bridge.send("runtime.error", error);
   };
 
   Runtime.prototype._errorHandlerSetup = function() {
@@ -718,27 +685,6 @@ Runtime = (function(superClass) {
 
   Runtime.prototype._errorHandlerRemove = function() {
     return window.removeEventListener("error", this._errorHandler);
-  };
-
-  Runtime.prototype._lookupLine = function(lineNumber) {
-    var char, charIndex, errorColNumber, errorLine, errorLineIndex, errorLineNumber, i, len, loc, sourceLines;
-    sourceLines = this.javascript.split("\n");
-    errorLineIndex = lineNumber - 1;
-    errorLine = sourceLines[errorLineIndex];
-    if (!errorLine) {
-      return lineNumber;
-    }
-    errorLineNumber = 1;
-    errorColNumber = 0;
-    for (charIndex = i = 0, len = errorLine.length; i < len; charIndex = ++i) {
-      char = errorLine[charIndex];
-      loc = this.sourceMap.sourceLocation([errorLineIndex, charIndex]);
-      if (loc && loc[0] > errorLineNumber) {
-        errorLineNumber = loc[0] + 1;
-        errorColNumber = loc[1];
-      }
-    }
-    return errorLineNumber;
   };
 
   return Runtime;

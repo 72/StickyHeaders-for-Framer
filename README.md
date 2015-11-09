@@ -27,14 +27,14 @@ Demo1 and Demo2 show a list of conference talks grouped by their starting time. 
 
 2. Create a Scroll Component as you normally do.
 ```coffeescript
-conferenceTalks = new Scroll Component
+conferenceTalks = new ScrollComponent
 	width: Screen.width
 	height: Screen.height
 	scrollHorizontal: false
 ```
 
 
-3. Add the content to your Scroll Component as you normally do.
+3. Add the content to your ScrollComponent as you normally do.
 For this demo, I'm using a .png with the list of talks.
 ```coffeescript
 list = new Layer

@@ -3,8 +3,8 @@ A module to enable sticky headers within Framer's Scroll Components.
 
 
 ## Examples
-- [Demo 1](http://share.framerjs.com/v20yzoofy9g7/)
-- [Demo 2](http://share.framerjs.com/kh5hd0tba1qb/)
+- [Demo 1](http://share.framerjs.com/rkgf7ahv74zb/)
+- [Demo 2](http://share.framerjs.com/fzvyfeal4l3r/)
 
 ## Installation
 

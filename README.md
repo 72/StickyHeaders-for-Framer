@@ -19,13 +19,13 @@ A module to enable sticky headers within Framer's Scroll Components.
 
 Demo1 and Demo2 show a list of conference talks grouped by their starting time. The starting times are the sticky headers.
 
-1. Import the module.
+1 - Import the module.
 ```coffeescript
 {StickyHeaders} = require "StickyHeaders"
 ```
 
 
-2. Create a Scroll Component as you normally do.
+2 - Create a Scroll Component as you normally do.
 ```coffeescript
 conferenceTalks = new ScrollComponent
 	width: Screen.width
@@ -34,7 +34,7 @@ conferenceTalks = new ScrollComponent
 ```
 
 
-3. Add the content to your ScrollComponent as you normally do.
+3 - Add the content to your ScrollComponent as you normally do.
 For this demo, I'm using a .png with the list of talks.
 ```coffeescript
 list = new Layer
@@ -45,7 +45,7 @@ list = new Layer
 ```
 
 
-4. Create your sticky headers as sublayers of the content, in this case `list`.
+4 - Create your sticky headers as sublayers of the content, in this case `list`.
 Make sure to add `name: 'StickyHeader'`, this tells the module that this is a sticky header.
 ```coffeescript
 header1 = new Layer
@@ -56,7 +56,7 @@ header1 = new Layer
 Since this is a `Layer` as any other, you can use it as a superLayer and add everything you need in it.
 
 
-5. Enable sticky headers for your main Scroll Component, in this case `conferenceTalks`.
+5 - Enable sticky headers for your main Scroll Component, in this case `conferenceTalks`.
 ```coffeescript
 StickyHeaders.enableFor conferenceTalks
 ```

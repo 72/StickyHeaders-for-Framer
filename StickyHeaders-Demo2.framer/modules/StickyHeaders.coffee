@@ -9,19 +9,16 @@ class exports.StickyHeaders
 		_stickyHeaders = []
 		_dataSH = []
 
-		# Run Once. Setup Vars.
-		sC.once Events.TouchStart, ->
+		# Check for StickyHeaders.
+		_stickyHeaders = sC.content.children[0].childrenWithName("StickyHeader")
 
-			# Check for StickyHeaders.
-			_stickyHeaders = sC.content.subLayers[0].subLayersByName("StickyHeader")
+		if _stickyHeaders.length > 0
+			# Save their initial Y value.
+			for layer, i in _stickyHeaders
+				_dataSH.push(layer.y)
 
-			if _stickyHeaders.length > 0
-				# Save their initial Y value.
-				for layer, i in _stickyHeaders
-					_dataSH.push(layer.y)
-
-		# Scroll logic.
-		sC.on Events.Move, ->
+		# Scroll logic. With this fix it now detects animations and mousewheel.
+		sC.content.on "change:y", ->
 
 			# If there are StickyHeaders, calculate their placement.
 			if _stickyHeaders.length > 0

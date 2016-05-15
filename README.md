@@ -3,8 +3,8 @@ A module to enable sticky headers within Framer's Scroll Components.
 
 
 ## Examples
-- [Demo 1](http://share.framerjs.com/rkgf7ahv74zb/)
-- [Demo 2](http://share.framerjs.com/fzvyfeal4l3r/)
+- [Demo 1](http://share.framerjs.com/vqs1517ohg58/)
+- [Demo 2](http://share.framerjs.com/4jr3dyd44bpm/)
 
 ## Installation
 
@@ -41,19 +41,19 @@ list = new Layer
 	width: Screen.width
 	height: 4750
 	image: 'images/list.png'
-	superLayer: conferenceTalks.content
+	parent: conferenceTalks.content
 ```
 
 
-4 - Create your sticky headers as sublayers of the content, in this case `list`.
+4 - Create your sticky headers and set their parent, in this case `list`.
 Make sure to add `name: 'StickyHeader'`, this tells the module that this is a sticky header.
 ```coffeescript
 header1 = new Layer
 	y: 175, width: Screen.width, height: 140
 	name: 'StickyHeader'
-	superLayer: list
+	parent: list
 ```
-Since this is a `Layer` as any other, you can use it as a superLayer and add everything you need in it.
+Since this is a `Layer` as any other, you can use it as a parent and add everything you need inside it.
 
 
 5 - Enable sticky headers for your main Scroll Component, in this case `conferenceTalks`.

@@ -1,8 +1,17 @@
 {
-  "updateDelay" : 0.3,
-  "deviceScale" : -1,
+  "propertyPanelToggleStates" : {
+
+  },
   "deviceOrientation" : 0,
+  "sharedPrototype" : 0,
   "contentScale" : 1,
-  "sharedPrototype" : 1,
-  "deviceType" : "iphone-6-silver"
+  "deviceType" : "apple-iphone-6s-silver",
+  "selectedHand" : "",
+  "updateDelay" : 0.3,
+  "deviceScale" : "fit",
+  "codeFolds" : [
+
+  ],
+  "orientation" : 0,
+  "fullScreen" : false
 }

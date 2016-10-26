@@ -1,6 +1,6 @@
 {
   "propertyPanelToggleStates" : {
-
+    "Filters" : false
   },
   "deviceOrientation" : 0,
   "sharedPrototype" : 0,
@@ -9,7 +9,7 @@
   "selectedHand" : "",
   "updateDelay" : 0.3,
   "deviceScale" : "fit",
-  "codeFolds" : [
+  "foldedCodeRanges" : [
 
   ],
   "orientation" : 0,

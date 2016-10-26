@@ -1,10 +1,10 @@
-# StickyHeaders-for-Framer
+# StickyHeaders for Framer
 A module to enable sticky headers within Framer's Scroll Components.
 
 
 ## Examples
-- [Demo 1](http://share.framerjs.com/vqs1517ohg58/)
-- [Demo 2](http://share.framerjs.com/4jr3dyd44bpm/)
+- [Demo 1](http://share.framerjs.com/fli8fyvsn2eb/)
+- [Demo 2](http://share.framerjs.com/ry0x8mpmnbsn/)
 
 ## Installation
 
@@ -45,30 +45,36 @@ list = new Layer
 ```
 
 
-4 - Create your sticky headers and set their parent, in this case `list`.
-Make sure to add `name: 'StickyHeader'`, this tells the module that this is a sticky header.
+4 - Create your sticky headers ***and set their parent to be the Scroll Component***.
+Make sure to add the attribute `name: 'StickyHeader'`, this tells the module that this is a sticky header.
 ```coffeescript
 header1 = new Layer
 	y: 175, width: Screen.width, height: 140
 	name: 'StickyHeader'
-	parent: list
+	parent: conferenceTalks.content
 ```
 Since this is a `Layer` as any other, you can use it as a parent and add everything you need inside it.
 
 
 5 - Enable sticky headers for your main Scroll Component, in this case `conferenceTalks`.
 ```coffeescript
-StickyHeaders.enableFor conferenceTalks
+StickyHeaders.enableFor(conferenceTalks)
+```
+
+
+Optional - You can pass a second parameter to set a custom top margin for the sticky headers. By default the value is 0.
+```coffeescript
+StickyHeaders.enableFor(conferenceTalks, 100)
 ```
 
 
 ## Planning your prototype
 Make sure to plan ahead what you need to show in your prototype. My workflow is:
-- Design a complete scroll with headers and list items in Sketch or Photoshop.
-- Export the scroll as a .png **without** the headers (just group the headers in one layer and turn it off).
+- Design a complete view with headers and list items in Sketch or Photoshop.
+- Export the comp as a .png **without** the headers (just group the headers in one layer and turn it off). Export each header apart from the list.
 - Put the .png in the `images` folder inside the Framer projet.
 - Install this module.
-- Refer to the design comp to get the values needed to create the headers.
+- Create the headers in Framer. These could be simple layers with the .png linked to the `image` attribute.
 
 [Medium - Unlocking ideas with Framer Studio](https://medium.com/@72mena/unlocking-ideas-with-framer-studio-790b5e9c249f) - See this module in action in one of the projects I was working on.
 

@@ -18,6 +18,7 @@ A module to enable sticky headers within Framer's Scroll Components.
 ## How to use
 
 ***= Update October 2016 =***
+
 ***Important change:*** the parent for your sticky headers must now be the scroll component. This frees you from using a “middleman layer” between the scroll component and the sticky headers, as it used to be before this update.
 ***New feature:*** optional custom top margin.
 ```coffeescript
@@ -25,6 +26,7 @@ StickyHeaders.enableFor(myScrollComponent, 100)
 ```
 
 ***Guide***
+
 Demo1 and Demo2 show a list of conference talks grouped by their starting time. The starting times are the sticky headers.
 
 1 - Import the module.

@@ -4,25 +4,22 @@ By @72mena
 ###
 class exports.StickyHeaders
 
-	@enableFor: (sC, topMargin) ->
+	@enableFor: (scrollComponent, topMargin) ->
 
 		dataSH = []
 		topMargin ?= 0
 
-		# Check for StickyHeaders.
-		stickyHeaders = sC.content.childrenWithName("StickyHeader")
+		# Check for sticky headers.
+		stickyHeaders = scrollComponent.content.childrenWithName("StickyHeader")
 		if stickyHeaders.length > 0
-			for header, i in stickyHeaders
+			for header in stickyHeaders
 				dataSH.push(header.y)
 
-		# Scroll logic. This fix detects animations and mousewheel.
-		sC.content.on "change:y", ->
-
-			if stickyHeaders.length > 0
+			# Scroll logic. I'm using 'change:y' instead of 'onMove' to detect animations and mousewheel.
+			scrollComponent.content.on "change:y", ->
 				for header, i in stickyHeaders
-
 					header.y = dataSH[i]
-					currentY = dataSH[i] - sC.scrollY
+					currentY = dataSH[i] - scrollComponent.scrollY
 
 					if i > 0
 						prevStickyPosition = dataSH[i] - stickyHeaders[i-1].height
@@ -32,4 +29,4 @@ class exports.StickyHeaders
 							stickyHeaders[i-1].y = prevStickyPosition
 
 					if currentY <= topMargin
-						header.y = sC.scrollY + topMargin
+						header.y = scrollComponent.scrollY + topMargin

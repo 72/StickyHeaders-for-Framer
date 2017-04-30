@@ -35,7 +35,7 @@ conferenceTalks = new ScrollComponent
 ```
 
 
-3 - Create the headers. ***Set their parent to be the Scroll Component, and their name to be 'StickyHeader'***.
+3 - Create the headers. **Set their parent to be the Scroll Component, and their name to be 'StickyHeader'**.
 ```coffeescript
 header1 = new Layer
 	y: 175, width: Screen.width, height: 140
@@ -68,5 +68,5 @@ Make sure to plan ahead what you need to show in your prototype. My workflow is:
 
 I hope this module saves you some time on your projects.
 
-##Contact
+## Contact
 Twitter: [@72mena](http://twitter.com/72mena)

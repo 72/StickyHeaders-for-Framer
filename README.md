@@ -1,7 +1,7 @@
 # Sticky headers for Framer
 A Framer module to enable sticky headers within scroll components.
 
-<a href='https://open.framermodules.com/stickyheaders'>
+<a href='https://open.framermodules.com/Sticky Headers'>
     <img alt='Install with Framer Modules'
     src='https://www.framermodules.com/assets/badge@2x.png' width='160' height='40' /></a>
 

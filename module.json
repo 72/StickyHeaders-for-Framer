@@ -1,0 +1,11 @@
+{
+  "name": "Sticky Headers",
+  "description": "A module to add sticky headers to your scroll components",
+  "author": "Juan F. Mena",
+
+  "require": "{StickyHeaders} = require 'StickyHeaders'",
+  "install": "StickyHeaders.coffee",
+  "example": "example.coffee",
+
+  "thumb": "thumb.gif"
+}
